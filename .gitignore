@@ -1,0 +1,15 @@
+.venv/
+datos/cache/
+datos/.DS_Store
+datos/._.DS_Store
+datos/__pycache__/
+proyecto_equipo/datos/crudos/*
+!proyecto_equipo/datos/crudos/.gitkeep
+proyecto_equipo/datos/derivados/*
+!proyecto_equipo/datos/derivados/.gitkeep
+proyecto_equipo/salidas/*
+!proyecto_equipo/salidas/.gitkeep
+__pycache__/
+*.pyc
+.DS_Store
+._*

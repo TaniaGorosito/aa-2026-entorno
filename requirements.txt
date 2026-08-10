@@ -1,0 +1,50 @@
+# Aprendizaje Automático y Grandes Datos — UNRaf
+# Entorno de la cátedra. Ciclo lectivo 2026.
+#
+# Instalación:   pip install -r requirements.txt
+# Verificación:  python scripts/verificar_entorno.py
+#
+# Las versiones están acotadas por arriba para que el cuatrimestre entero corra sobre
+# el mismo comportamiento. Levantar el techo solo al inicio de un ciclo lectivo, nunca
+# a mitad de cursada: un cambio de versión durante el cuatrimestre rompe la
+# comparabilidad entre entregas.
+
+# --- núcleo
+numpy>=1.26,<3.0
+pandas>=2.1,<3.1
+scipy>=1.11,<2.0
+scikit-learn>=1.4,<1.9
+
+# --- visualización
+matplotlib>=3.8,<4.0
+seaborn>=0.13,<0.14
+plotly>=5.18,<7.0
+
+# --- unidades específicas
+xgboost>=2.0,<4.0          # Unidad 7 — métodos de ensamble
+mlxtend>=0.23,<0.26        # Unidad 8 — reglas de asociación (A priori, Eclat, FP-Growth)
+statsmodels>=0.14,<0.15    # Unidad 2 — estadística descriptiva e inferencia
+fg-data-profiling>=4.16    # Unidad 2 — perfilado automático (import: data_profiling)
+#
+# SOBRE EL NOMBRE DEL PAQUETE DE PERFILADO. Se llamó pandas-profiling, después
+# ydata-profiling y hoy fg-data-profiling. Los nombres viejos todavía instalan pero
+# ya no reciben actualizaciones, y el módulo se importa como `data_profiling` en los
+# tres casos. Es el ejemplo que la clase usa para explicar por qué este archivo lleva
+# versiones acotadas, así que conviene revisarlo al inicio de cada ciclo lectivo.
+
+# --- acceso a datos
+ucimlrepo>=0.0.7           # catálogo de la cátedra, conjuntos alojados en UCI
+pyarrow>=14.0              # caché local en formato parquet
+openpyxl>=3.1              # `pd.read_excel` y `pd.to_excel`: pandas NO lo trae
+#
+# SOBRE openpyxl. `pd.read_excel` está proyectado en la clase de manipulación de
+# datos y pandas no lo puede ejecutar sin este paquete: falla con ImportError en la
+# lectura, no en el import de pandas, así que el error aparece recién en el aula.
+# Es el mismo caso que el paquete de perfilado y por eso queda declarado acá.
+
+# --- tablero (Unidad 4)
+streamlit>=1.30,<2.0
+
+# --- entorno de trabajo
+jupyterlab>=4.0,<5.0
+ipywidgets>=8.1,<9.0
