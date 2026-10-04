@@ -81,8 +81,6 @@ VERIFICACIÓN DEL ENTORNO — Aprendizaje Automático y Grandes Datos — UNRaf
   OK    Partición de scikit-learn con random_state fijo: reproducible
 
 ==============================================================================
-RESULTADO: entorno correcto. Anotar esta salida en la bitácora del equipo.
-==============================================================================
 
 Huella de `diamantes` en cada modalidad (deben ser idénticas): 
 
