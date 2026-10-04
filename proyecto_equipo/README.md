@@ -48,15 +48,47 @@ docker run --rm -p 8888:8888 -v "$PWD":/trabajo unraf-aa
 
 Salida de `python scripts/verificar_entorno.py` (pegar completa, una por modalidad):
 
-```
-(pegar acá la salida)
-```
+==============================================================================
+VERIFICACIÓN DEL ENTORNO — Aprendizaje Automático y Grandes Datos — UNRaf
+==============================================================================
 
-Huella de `diamantes` en cada modalidad (deben ser idénticas):
+1. Intérprete de Python
+  OK    Python 3.12.0 sobre Windows AMD64
+
+2. Dependencias
+  OK    numpy 2.5.3
+  OK    pandas 2.3.3
+  OK    scipy 1.18.1
+  OK    sklearn 1.8.0
+  OK    matplotlib 3.11.2
+  OK    seaborn 0.13.2
+  OK    plotly 6.9.0
+  OK    xgboost 3.4.1
+  OK    mlxtend 0.25.0
+  OK    statsmodels 0.14.6
+  OK    ucimlrepo ?
+  OK    pyarrow 25.0.1
+
+3. Catálogo de datos de la cátedra
+  OK    Catálogo importado: 13 conjuntos registrados
+  OK    Directorio de caché: C:\AAG\Practica\datos\cache
+  OK    Todos los conjuntos supervisados declaran su variable objetivo
+  OK    Todos los conjuntos declaran licencia y citación
+  OK    listar() devuelve 13 filas
+
+4. Reproducibilidad de la aleatoriedad
+  OK    Generador de NumPy con semilla fija: reproducible
+  OK    Partición de scikit-learn con random_state fijo: reproducible
+
+==============================================================================
+RESULTADO: entorno correcto. Anotar esta salida en la bitácora del equipo.
+==============================================================================
+
+Huella de `diamantes` en cada modalidad (deben ser idénticas): 
 
 | Modalidad | Huella | Filas × columnas |
 |---|---|---|
-| venv | | |
+| venv | 1b8812569e371bba|53940 × 10 |
 | conda | | |
 | Docker | | |
 
