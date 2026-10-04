@@ -48,9 +48,9 @@ docker run --rm -p 8888:8888 -v "$PWD":/trabajo unraf-aa
 
 Salida de `python scripts/verificar_entorno.py` (pegar completa, una por modalidad):
 
-==============================================================================
+
 VERIFICACIÓN DEL ENTORNO — Aprendizaje Automático y Grandes Datos — UNRaf
-==============================================================================
+
 
 1. Intérprete de Python
   OK    Python 3.12.0 sobre Windows AMD64
