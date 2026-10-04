@@ -13,11 +13,15 @@ Repositorio: https://github.com/TaniaGorosito/aa-2026-entorno
 | (nombre) | (rol) |
 
 ## Conjunto de datos del equipo
-
-- Nombre y origen: (completar)
-- Licencia: (completar)
-- Pregunta de análisis: (completar)
-- Estado de la validación (clase 9): (pendiente / aprobado)
+- Nombre y origen: Encuesta Nacional de Consumos Culturales y Entorno Digital 2017 (ENCC 2017), publicada por la Secretaría de Cultura de la Nación en el portal de datos abiertos datos.gob.ar. Relevamiento a cargo de la consultora Ibarómetro, sobre población de 13 años y más.
+- Enlace: https://datos.gob.ar/dataset/encuesta-nacional-de-consumos-culturales/resource/e7cd5858-b854-5bf5-a14c-71eb5017cadf (archivo original encc_2017.csv; en el proyecto se usa convertido a Excel, encc_2017.xlsx). Cuestionario aplicado: https://datos.gob.ar/dataset/encuesta-nacional-de-consumos-culturales/resource/6d3b9b6d-1596-558a-a459-42f85393830e
+- Licencia: CC BY 4.0 (Creative Commons Atribución 4.0). Cita: Secretaría de Cultura de la Nación, Encuesta Nacional de Consumos Culturales 2017, datos.gob.ar.
+- Última actualización en el portal: 30 de octubre de 2023.
+- Tamaño: 2.802 encuestas × 450 columnas. Incluye una columna de ponderación (pondera_dem) y variables derivadas, como el nivel socioeconómico (NSEpuntaje, NSEcat1) y los totales de horas por actividad.
+- Pregunta de análisis: ¿Qué características de las personas (edad, región, nivel de estudios, acceso a internet) se asocian con sus hábitos de consumo cultural?
+- Problemas de calidad detectados: alrededor del 36 % de las celdas está vacío, en 439 de las 450 columnas, en buena parte por los saltos del cuestionario. Casi todas las columnas están guardadas como texto, incluso respuestas numéricas como gastos y cantidades, y hay que convertirlas. Hay 2 filas con sexo "ALQUILADA", un valor que corresponde a otra pregunta, y 2 con región y fecha vacías, que hay que revisar. Los códigos NS/NC (99, 999, 9999) conviven con valores reales.
+- Datos personales: el archivo no tiene nombres, teléfonos ni domicilios.
+- Estado de la validación (clase 9): aprobado
 
 ## Entorno de cada integrante
 
