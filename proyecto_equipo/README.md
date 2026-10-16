@@ -110,3 +110,13 @@ Huella de `diamantes` en cada modalidad (deben ser idénticas):
 2. (falla 2 y qué habría que hacer en su lugar)
 3. (falla 3 y qué habría que hacer en su lugar)
 
+
+
+## Cuadernos del TP
+
+1. `notebooks/01_diccionario_ai.ipynb`: diccionario y perfil del dataset.
+2. `notebooks/02_limpieza_ai.ipynb`: validación y generación del parquet limpio.
+3. `notebooks/03_descriptiva_ai.ipynb`: respuestas descriptivas a las diez preguntas, con gráficos dentro del cuaderno.
+4. `notebooks/04_flujos_modelado_fuga.ipynb`: regresión de adopción de IA, preparación en pipeline, selección dentro de validación cruzada y separación por empresa para evitar fuga.
+
+Para rehacer el análisis, guardar `ai_company_adoption.csv` en `datos/crudos/` y ejecutar los cuadernos 02, 03 y 04 en ese orden. Abrir Jupyter desde la raíz del repositorio; los cuadernos buscan `proyecto_equipo/datos` aunque el repositorio también tenga una carpeta `datos/` propia.
