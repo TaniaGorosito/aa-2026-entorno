@@ -13,15 +13,15 @@ Repositorio: https://github.com/TaniaGorosito/aa-2026-entorno
 | (nombre) | (rol) |
 
 ## Conjunto de datos del equipo
-- Nombre y origen: Encuesta Nacional de Consumos Culturales y Entorno Digital 2017 (ENCC 2017), publicada por la Secretaría de Cultura de la Nación en el portal de datos abiertos datos.gob.ar. Relevamiento a cargo de la consultora Ibarómetro, sobre población de 13 años y más.
-- Enlace: https://datos.gob.ar/dataset/encuesta-nacional-de-consumos-culturales/resource/e7cd5858-b854-5bf5-a14c-71eb5017cadf (archivo original encc_2017.csv; se lee como texto desde `datos/crudos/encc_2017.csv`). Cuestionario aplicado: https://datos.gob.ar/dataset/encuesta-nacional-de-consumos-culturales/resource/6d3b9b6d-1596-558a-a459-42f85393830e
-- Licencia: CC BY 4.0 (Creative Commons Atribución 4.0). Cita: Secretaría de Cultura de la Nación, Encuesta Nacional de Consumos Culturales 2017, datos.gob.ar.
-- Última actualización en el portal: 30 de octubre de 2023.
-- Tamaño: 2.802 encuestas × 450 columnas. Incluye una columna de ponderación (pondera_dem) y variables derivadas, como el nivel socioeconómico (NSEpuntaje, NSEcat1) y los totales de horas por actividad.
-- Pregunta de análisis: ¿Qué características de las personas (edad, región, nivel de estudios, acceso a internet) se asocian con sus hábitos de consumo cultural?
-- Problemas de calidad detectados: alrededor del 36 % de las celdas está vacío, en 439 de las 450 columnas, en buena parte por los saltos del cuestionario. Casi todas las columnas están guardadas como texto, incluso respuestas numéricas como gastos y cantidades, y hay que convertirlas. Hay 2 filas con sexo "ALQUILADA", un valor que corresponde a otra pregunta, y 2 con región y fecha vacías, que hay que revisar. Los códigos NS/NC (99, 999, 9999) conviven con valores reales.
-- Datos personales: el archivo no tiene nombres, teléfonos ni domicilios.
-- Estado de la validación (clase 9): aprobado
+- Nombre y origen: Global AI Adoption & Workforce Impact Dataset, publicado en Kaggle por mohankrishnathalla. Se usa el archivo ai_company_adoption.csv. La fuente no documenta cómo se generaron ni se recolectaron los datos.
+- Enlace: https://www.kaggle.com/datasets/mohankrishnathalla/global-ai-adoption-and-workforce-impact-dataset?select=ai_company_adoption.csv (consultado en octubre de 2026). El archivo se usa tal cual, en CSV, y el diccionario de datos en Excel (diccionario_datos_ai_company_adoption.xlsx) se armó a partir de él.
+- Licencia: A CONFIRMAR en la página de Kaggle antes de publicar el repositorio. Cita: mohankrishnathalla, Global AI Adoption & Workforce Impact Dataset, Kaggle.
+- Última actualización en el portal: Hace 7 meses
+- Tamaño: 150.000 filas × 43 columnas (40,42 MB). Cada fila es una empresa en un trimestre (2023–2026): hay 10.000 empresas, con entre 10 y 16 filas cada una. Incluye variables de adopción de IA (tasa, etapa, herramienta, proyectos, presupuesto, capacitación), de impacto (productividad, automatización, ahorro de tiempo, empleos creados y desplazados, ingresos, costes) y de gobernanza (cumplimiento, gestión de riesgos, comité de ética, privacidad). No trae columna de ponderación.
+- Pregunta de análisis: ¿Cómo se asocia la adopción de IA en las empresas con sus resultados (productividad, empleo, costes e ingresos), y cómo varía según región, sector y tamaño de empresa? Se desglosa en 10 preguntas SMART (ver 01_diccionario_ai.ipynb y 03_descriptiva_ai.ipynb).
+- Problemas de calidad detectados: el archivo no tiene celdas vacías, filas duplicadas ni valores imposibles. Aun así: (1) es un panel no balanceado, y response_id llega a 160.000 con solo 150.000 filas (10.000 saltos que la fuente no explica); (2) 2026 trae los cuatro trimestres aunque el Q4 de 2026 no había terminado en octubre de 2026; (3) muchas variables acumulan filas exactamente en su piso o tope (por ejemplo, 15.887 filas con cost_reduction_percent en 0 y 6.106 con revenue_growth_percent en −5), y los datos están tan prolijos que podrían ser sintéticos o compilados, algo que la fuente no aclara; (4) las unidades de varias columnas se infieren del nombre y las escalas de los puntajes no están documentadas; (5) ai_adoption_stage es ai_adoption_rate cortada en tramos, y "none" no equivale a 0 % de adopción; (6) survey_source y data_collection_method se reparten casi en partes iguales entre sus 4 categorías y su procedencia no se puede verificar.
+- Datos personales: el archivo no tiene datos personales; los identificadores de empresa (COMP-00001, etc.) son códigos, sin nombres, domicilios ni contactos.
+- Estado de la validación (clase 9): Aprobado
 
 ## Entorno de cada integrante
 
@@ -110,12 +110,3 @@ Huella de `diamantes` en cada modalidad (deben ser idénticas):
 2. (falla 2 y qué habría que hacer en su lugar)
 3. (falla 3 y qué habría que hacer en su lugar)
 
-## Cuadernos del TP
-
-1. `notebooks/01_diccionario_encc.ipynb`: perfil, significado de variables y decisiones iniciales.
-2. `notebooks/02_limpieza_encc.ipynb`: limpieza reproducible; genera `datos/derivados/encc_2017_limpio.parquet`.
-3. `notebooks/03_descriptiva_encc.ipynb`: análisis descriptivo y asociaciones.
-4. `notebooks/04_modelado_fuga_datos.ipynb`: preparación y evaluación de un clasificador de asistencia al cine, con el preprocesamiento ajustado solo sobre entrenamiento.
-5. `notebooks/05_tablero_interactivo.ipynb`: tablero Plotly de asistencia al cine por región, edad y sexo; también exporta un HTML local. La app con filtros globales está en `src/tablero.py` y comparte la preparación y los gráficos de `src/visualizaciones_encc.py`.
-
-Para rehacer el análisis, descargar el recurso `encc_2017.csv` desde el enlace citado arriba y guardarlo en `datos/crudos/encc_2017.csv`. El archivo crudo está excluido de Git; cada integrante lo descarga localmente. Ejecutar los cuadernos 02, 03, 04 y 05 en ese orden. Para iniciar el tablero interactivo, desde la raíz del repositorio ejecutar `streamlit run proyecto_equipo/src/tablero.py`.
