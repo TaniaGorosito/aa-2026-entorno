@@ -116,5 +116,6 @@ Huella de `diamantes` en cada modalidad (deben ser idénticas):
 2. `notebooks/02_limpieza_encc.ipynb`: limpieza reproducible; genera `datos/derivados/encc_2017_limpio.parquet`.
 3. `notebooks/03_descriptiva_encc.ipynb`: análisis descriptivo y asociaciones.
 4. `notebooks/04_modelado_fuga_datos.ipynb`: preparación y evaluación de un clasificador de asistencia al cine, con el preprocesamiento ajustado solo sobre entrenamiento.
+5. `notebooks/05_tablero_interactivo.ipynb`: tablero Plotly de asistencia al cine por región, edad y sexo; también exporta un HTML local. La app con filtros globales está en `src/tablero.py` y comparte la preparación y los gráficos de `src/visualizaciones_encc.py`.
 
-Para rehacer el análisis, descargar el recurso `encc_2017.csv` desde el enlace citado arriba y guardarlo en `datos/crudos/encc_2017.csv`. El archivo crudo está excluido de Git; cada integrante lo descarga localmente. Ejecutar los cuadernos 02, 03 y 04 en ese orden.
+Para rehacer el análisis, descargar el recurso `encc_2017.csv` desde el enlace citado arriba y guardarlo en `datos/crudos/encc_2017.csv`. El archivo crudo está excluido de Git; cada integrante lo descarga localmente. Ejecutar los cuadernos 02, 03, 04 y 05 en ese orden. Para iniciar el tablero interactivo, desde la raíz del repositorio ejecutar `streamlit run proyecto_equipo/src/tablero.py`.
