@@ -14,7 +14,7 @@ Repositorio: https://github.com/TaniaGorosito/aa-2026-entorno
 
 ## Conjunto de datos del equipo
 - Nombre y origen: Encuesta Nacional de Consumos Culturales y Entorno Digital 2017 (ENCC 2017), publicada por la Secretaría de Cultura de la Nación en el portal de datos abiertos datos.gob.ar. Relevamiento a cargo de la consultora Ibarómetro, sobre población de 13 años y más.
-- Enlace: https://datos.gob.ar/dataset/encuesta-nacional-de-consumos-culturales/resource/e7cd5858-b854-5bf5-a14c-71eb5017cadf (archivo original encc_2017.csv; en el proyecto se usa convertido a Excel, encc_2017.xlsx). Cuestionario aplicado: https://datos.gob.ar/dataset/encuesta-nacional-de-consumos-culturales/resource/6d3b9b6d-1596-558a-a459-42f85393830e
+- Enlace: https://datos.gob.ar/dataset/encuesta-nacional-de-consumos-culturales/resource/e7cd5858-b854-5bf5-a14c-71eb5017cadf (archivo original encc_2017.csv; se lee como texto desde `datos/crudos/encc_2017.csv`). Cuestionario aplicado: https://datos.gob.ar/dataset/encuesta-nacional-de-consumos-culturales/resource/6d3b9b6d-1596-558a-a459-42f85393830e
 - Licencia: CC BY 4.0 (Creative Commons Atribución 4.0). Cita: Secretaría de Cultura de la Nación, Encuesta Nacional de Consumos Culturales 2017, datos.gob.ar.
 - Última actualización en el portal: 30 de octubre de 2023.
 - Tamaño: 2.802 encuestas × 450 columnas. Incluye una columna de ponderación (pondera_dem) y variables derivadas, como el nivel socioeconómico (NSEpuntaje, NSEcat1) y los totales de horas por actividad.
@@ -109,3 +109,12 @@ Huella de `diamantes` en cada modalidad (deben ser idénticas):
 1. (falla 1 y qué habría que hacer en su lugar)
 2. (falla 2 y qué habría que hacer en su lugar)
 3. (falla 3 y qué habría que hacer en su lugar)
+
+## Cuadernos del TP
+
+1. `notebooks/01_diccionario_encc.ipynb`: perfil, significado de variables y decisiones iniciales.
+2. `notebooks/02_limpieza_encc.ipynb`: limpieza reproducible; genera `datos/derivados/encc_2017_limpio.parquet`.
+3. `notebooks/03_descriptiva_encc.ipynb`: análisis descriptivo y asociaciones.
+4. `notebooks/04_modelado_fuga_datos.ipynb`: preparación y evaluación de un clasificador de asistencia al cine, con el preprocesamiento ajustado solo sobre entrenamiento.
+
+Para rehacer el análisis, descargar el recurso `encc_2017.csv` desde el enlace citado arriba y guardarlo en `datos/crudos/encc_2017.csv`. El archivo crudo está excluido de Git; cada integrante lo descarga localmente. Ejecutar los cuadernos 02, 03 y 04 en ese orden.
