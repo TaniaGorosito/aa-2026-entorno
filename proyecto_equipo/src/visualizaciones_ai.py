@@ -74,22 +74,12 @@ def resumen_por_grupo(datos: pd.DataFrame, grupo: str, por=None) -> pd.DataFrame
     return resumen.sort_values(claves).reset_index(drop=True)
 
 
-def crear_tablero(datos: pd.DataFrame, incluir_tamano: bool = False):
-    """Tablero de tres vistas; opcionalmente agrega la comparación por tamaño."""
-    if incluir_tamano:
-        titulos = ("¿Cómo cambió por año?", "¿Qué regiones difieren?",
-                   "¿Qué industrias difieren?", "¿Qué tamaños difieren?")
-        specs = [[{}, {}], [{}, {}]]
-        ubicaciones = [("region", 1, 2), ("industry", 2, 1), ("company_size", 2, 2)]
-    else:
-        titulos = ("¿Cómo cambió por año?", "¿Qué regiones difieren?",
-                   "¿Qué industrias difieren?")
-        specs = [[{"colspan": 2}, None], [{}, {}]]
-        ubicaciones = [("region", 2, 1), ("industry", 2, 2)]
+def crear_tablero(datos: pd.DataFrame):
+    """Tablero de tres vistas: evolución, diferencias regionales e industriales."""
     fig = make_subplots(
         rows=2, cols=2,
-        specs=specs,
-        subplot_titles=titulos,
+        specs=[[{"colspan": 2}, None], [{}, {}]],
+        subplot_titles=("Evolución anual", "Por región", "Por industria"),
         horizontal_spacing=0.12, vertical_spacing=0.22,
     )
     hover_linea = ("Año: %{x}<br>Adopción media: %{y:.1f}%"
@@ -102,11 +92,10 @@ def crear_tablero(datos: pd.DataFrame, incluir_tamano: bool = False):
     tablas = {
         "region": resumen_por_grupo(datos, "region"),
         "industry": resumen_por_grupo(datos, "industry"),
-        "company_size": resumen_por_grupo(datos, "company_size"),
         "anio": resumen_por_grupo(datos, "survey_year"),
     }
 
-    for clave, fila, col in ubicaciones:
+    for clave, fila, col in [("region", 2, 1), ("industry", 2, 2)]:
         tabla = tablas[clave]
         tabla = tabla.sort_values("media")
         fig.add_trace(
@@ -142,7 +131,7 @@ def crear_tablero(datos: pd.DataFrame, incluir_tamano: bool = False):
     fig.update_xaxes(title_text="Año de encuesta", row=1, col=1)
 
     fig.update_yaxes(title_text="Adopción media (%)", range=[0, 100], row=1, col=1)
-    for _, fila, col in ubicaciones:
+    for fila, col in [(2, 1), (2, 2)]:
         fig.update_xaxes(title_text="Adopción media (%)", range=[0, 100], row=fila, col=col)
         fig.update_yaxes(title_text="", row=fila, col=col)
 
