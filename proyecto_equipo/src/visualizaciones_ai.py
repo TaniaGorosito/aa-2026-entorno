@@ -19,7 +19,7 @@ ANIOS = [2023, 2024, 2025, 2026]
 PALETA = {"Startup": "#D98E04", "SME": "#176B87", "Enterprise": "#7A3E9D"}
 COLOR_BASE = "#176B87"
 
-COLUMNAS = ["survey_year", "region", "industry", "company_size", "ai_adoption_rate"]
+COLUMNAS = ["company_id", "survey_year", "region", "industry", "company_size", "ai_adoption_rate"]
 
 
 def preparar_datos(df: pd.DataFrame) -> pd.DataFrame:
@@ -53,15 +53,18 @@ def filtrar(datos: pd.DataFrame, regiones=None, industrias=None, tamanos=None,
 
 
 def resumen_por_grupo(datos: pd.DataFrame, grupo: str, por=None) -> pd.DataFrame:
-    """Media, mediana y n (filas empresa-trimestre) de la tasa de adopción por grupo.
+    """Media, mediana, empresas distintas y filas empresa-trimestre por grupo.
 
     Si se indica `por`, se calcula por cada combinación de `grupo` y `por`.
     """
     claves = [grupo] if por is None else [grupo, por]
     if datos.empty:
-        return pd.DataFrame(columns=claves + ["media", "mediana", "n"])
-    resumen = (datos.groupby(claves, observed=True)["ai_adoption_rate"]
-               .agg(media="mean", mediana="median", n="size")
+        return pd.DataFrame(columns=claves + ["media", "mediana", "n_empresas", "n_filas"])
+    resumen = (datos.groupby(claves, observed=True)
+               .agg(media=("ai_adoption_rate", "mean"),
+                    mediana=("ai_adoption_rate", "median"),
+                    n_empresas=("company_id", "nunique"),
+                    n_filas=("ai_adoption_rate", "size"))
                .reset_index())
     orden = {"region": REGIONES, "industry": INDUSTRIAS, "company_size": TAMANOS,
              "survey_year": ANIOS}
@@ -72,56 +75,70 @@ def resumen_por_grupo(datos: pd.DataFrame, grupo: str, por=None) -> pd.DataFrame
 
 
 def crear_tablero(datos: pd.DataFrame):
-    """Tablero de cuatro vistas alineadas con las preguntas P1 a P3 y la evolución anual."""
+    """Tablero de tres vistas: evolución, diferencias regionales e industriales."""
     fig = make_subplots(
         rows=2, cols=2,
-        subplot_titles=("Adopción por región", "Adopción por industria",
-                        "Adopción por tamaño de empresa", "Adopción por año"),
-        horizontal_spacing=0.10, vertical_spacing=0.20,
+        specs=[[{"colspan": 2}, None], [{}, {}]],
+        subplot_titles=("Evolución anual", "Por región", "Por industria"),
+        horizontal_spacing=0.12, vertical_spacing=0.22,
     )
-    hover = ("Grupo: %{x}<br>Adopción promedio: %{y:.1f}%"
-             "<br>Filas (empresa-trimestre): %{customdata:,}<extra></extra>")
+    hover_linea = ("Año: %{x}<br>Adopción media: %{y:.1f}%"
+                   "<br>Empresas distintas: %{customdata[0]:,}"
+                   "<br>Filas empresa-trimestre: %{customdata[1]:,}<extra></extra>")
+    hover_barras = ("Grupo: %{y}<br>Adopción media: %{x:.1f}%"
+                    "<br>Empresas distintas: %{customdata[0]:,}"
+                    "<br>Filas empresa-trimestre: %{customdata[1]:,}<extra></extra>")
 
     tablas = {
         "region": resumen_por_grupo(datos, "region"),
         "industry": resumen_por_grupo(datos, "industry"),
-        "company_size": resumen_por_grupo(datos, "company_size"),
-        "anio": resumen_por_grupo(datos, "survey_year", por="company_size"),
+        "anio": resumen_por_grupo(datos, "survey_year"),
     }
 
-    posiciones = [("region", 1, 1), ("industry", 1, 2), ("company_size", 2, 1)]
-    for clave, fila, col in posiciones:
+    for clave, fila, col in [("region", 2, 1), ("industry", 2, 2)]:
         tabla = tablas[clave]
-        colores = [PALETA.get(str(g), COLOR_BASE) for g in tabla[clave]]
+        tabla = tabla.sort_values("media")
         fig.add_trace(
-            go.Bar(x=tabla[clave].astype(str), y=tabla["media"], customdata=tabla["n"],
-                   marker_color=colores, showlegend=False,
+            go.Bar(x=tabla["media"], y=tabla[clave].astype(str), orientation="h",
+                   customdata=tabla[["n_empresas", "n_filas"]].to_numpy(),
+                   marker_color=COLOR_BASE, showlegend=False,
                    text=tabla["media"].round(1).astype(str) + "%", textposition="outside",
-                   hovertemplate=hover),
+                   hovertemplate=hover_barras),
             row=fila, col=col)
+        fig.add_vline(x=datos["ai_adoption_rate"].mean(), line_dash="dot",
+                      line_color="#7F7F7F", row=fila, col=col,
+                      annotation_text="Promedio del recorte", annotation_position="top")
 
-    # Evolución anual: una línea por tamaño de empresa
+    # El período completo se conserva para no ocultar cambios que contradigan el titular.
     tabla = tablas["anio"]
-    for tamano in TAMANOS:
-        parte = tabla[tabla["company_size"] == tamano]
-        fig.add_trace(
-            go.Scatter(x=parte["survey_year"].astype(str), y=parte["media"], mode="lines+markers",
-                       customdata=parte["n"], name=tamano, legendgroup=tamano,
-                       line=dict(color=PALETA[tamano], width=3), marker=dict(size=8),
-                       hovertemplate=hover),
-            row=2, col=2)
+    inicio, fin = tabla.iloc[0], tabla.iloc[-1]
+    cambio = fin["media"] - inicio["media"]
+    if int(inicio["survey_year"]) == int(fin["survey_year"]):
+        titular = f"La adopción media fue {fin['media']:.1f}% en {int(fin['survey_year'])}"
+    elif abs(cambio) < 0.05:
+        titular = (f"La adopción media se mantuvo en {fin['media']:.1f}% entre "
+                   f"{int(inicio['survey_year'])} y {int(fin['survey_year'])}")
+    else:
+        verbo = "subió" if cambio > 0 else "bajó"
+        titular = (f"La adopción media {verbo} {abs(cambio):.1f} puntos porcentuales "
+                   f"entre {int(inicio['survey_year'])} y {int(fin['survey_year'])}")
+    fig.add_trace(go.Scatter(
+        x=tabla["survey_year"].astype(str), y=tabla["media"], mode="lines+markers+text",
+        customdata=tabla[["n_empresas", "n_filas"]].to_numpy(),
+        text=tabla["media"].round(1).astype(str) + "%", textposition="top center",
+        line=dict(color=COLOR_BASE, width=3), marker=dict(size=9), showlegend=False,
+        hovertemplate=hover_linea), row=1, col=1)
+    fig.update_xaxes(title_text="Año de encuesta", row=1, col=1)
 
-    # Misma escala vertical en las cuatro vistas, para poder compararlas
-    maximo = max([float(t["media"].max()) for t in tablas.values() if not t.empty] or [100.0])
-    for fila, col in [(1, 1), (1, 2), (2, 1), (2, 2)]:
-        fig.update_yaxes(title_text="Adopción promedio", range=[0, maximo * 1.25],
-                         ticksuffix="%", row=fila, col=col)
-        fig.update_xaxes(title_text="", row=fila, col=col)
+    fig.update_yaxes(title_text="Adopción media (%)", range=[0, 100], row=1, col=1)
+    for fila, col in [(2, 1), (2, 2)]:
+        fig.update_xaxes(title_text="Adopción media (%)", range=[0, 100], row=fila, col=col)
+        fig.update_yaxes(title_text="", row=fila, col=col)
 
     fig.update_layout(
-        template="plotly_white", height=720,
-        title=dict(text="Tasa promedio de adopción de IA en empresas · 2023–2026",
+        template="plotly_white", height=760,
+        title=dict(text=titular,
                    x=0.02, xanchor="left"),
-        legend_title_text="Tamaño de empresa", margin=dict(l=35, r=25, t=95, b=55),
+        margin=dict(l=35, r=45, t=100, b=55),
     )
     return fig

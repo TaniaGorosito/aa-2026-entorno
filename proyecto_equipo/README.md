@@ -118,5 +118,12 @@ Huella de `diamantes` en cada modalidad (deben ser idénticas):
 2. `notebooks/02_limpieza_ai.ipynb`: validación y generación del parquet limpio.
 3. `notebooks/03_descriptiva_ai.ipynb`: respuestas descriptivas a las diez preguntas, con gráficos dentro del cuaderno.
 4. `notebooks/04_flujos_modelado_fuga.ipynb`: regresión de adopción de IA, preparación en pipeline, selección dentro de validación cruzada y separación por empresa para evitar fuga.
+5. `notebooks/05_tablero_interactivo.ipynb`: diseño y justificación de un tablero de tres vistas, con filtros globales y aplicación equivalente en Streamlit.
 
-Para rehacer el análisis, guardar `ai_company_adoption.csv` en `datos/crudos/` y ejecutar los cuadernos 02, 03 y 04 en ese orden. Abrir Jupyter desde la raíz del repositorio; los cuadernos buscan `proyecto_equipo/datos` aunque el repositorio también tenga una carpeta `datos/` propia.
+Para rehacer el análisis, guardar `ai_company_adoption.csv` en `datos/crudos/` y ejecutar los cuadernos 02, 03, 04 y 05 en ese orden. Abrir Jupyter desde la raíz del repositorio; los cuadernos buscan `proyecto_equipo/datos` aunque el repositorio también tenga una carpeta `datos/` propia.
+
+Para levantar el tablero interactivo en Streamlit desde la raíz del repositorio:
+
+```bash
+streamlit run proyecto_equipo/src/tablero.py
+```

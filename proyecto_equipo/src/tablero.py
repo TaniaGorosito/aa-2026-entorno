@@ -1,6 +1,7 @@
 """Aplicación Streamlit del tablero de adopción de IA en empresas. Ejecutar desde la raíz del repositorio."""
 from pathlib import Path
 import sys
+import inspect
 import pandas as pd
 import streamlit as st
 
@@ -11,9 +12,9 @@ from visualizaciones_ai import INDUSTRIAS, REGIONES, TAMANOS, crear_tablero, fil
 ARCHIVO = ROOT / "proyecto_equipo/datos/derivados/ai_company_adoption_limpio.parquet"
 
 st.set_page_config(page_title="Adopción de IA en empresas", page_icon="🤖", layout="wide")
-st.title("¿Dónde y en qué empresas se adopta más la IA?")
-st.caption("Global AI Adoption & Workforce Impact Dataset (Kaggle) · empresa-trimestre, 2023–2026 · medias simples, sin ponderar")
-st.markdown("Este tablero describe diferencias en la tasa de adopción de IA (`ai_adoption_rate`) según región, industria, tamaño de empresa y año. Las asociaciones observadas no implican causalidad.")
+st.title("¿Cómo evoluciona y dónde se adopta más la IA?")
+st.caption("Global AI Adoption & Workforce Impact Dataset (Kaggle) · fuente consultada en octubre de 2026 · empresa-trimestre, 2023–2026 · medias simples, sin ponderar")
+st.markdown("**Audiencia y decisión:** el equipo que sigue la adopción de IA puede identificar qué regiones e industrias conviene revisar con más detalle. El tablero describe asociaciones; no estima efectos causales ni representa a todas las empresas.")
 
 @st.cache_data
 def cargar():
@@ -38,20 +39,25 @@ if vista.empty:
     st.stop()
 
 promedio = vista["ai_adoption_rate"].mean()
+por_anio = vista.groupby("survey_year", observed=True)["ai_adoption_rate"].mean().sort_index()
 por_region = vista.groupby("region", observed=True)["ai_adoption_rate"].mean()
 col1, col2, col3 = st.columns(3)
-col1.metric("Adopción promedio", f"{promedio:.1f}%")
-col2.metric("Filas (empresa-trimestre)", f"{len(vista):,}")
-if len(por_region) >= 2:
-    orden = por_region.sort_values()
-    col3.metric("Brecha entre regiones", f"{orden.iloc[-1]-orden.iloc[0]:.1f} pp",
-                help=f"{orden.index[-1]} ({orden.iloc[-1]:.1f}%) − {orden.index[0]} ({orden.iloc[0]:.1f}%)")
+col1.metric("Adopción media en la selección", f"{promedio:.1f}%", help="Referencia: escala completa de 0 a 100 %.")
+if len(por_anio) >= 2:
+    cambio = por_anio.iloc[-1] - por_anio.iloc[0]
+    col2.metric(f"Cambio {int(por_anio.index[0])}–{int(por_anio.index[-1])}", f"{cambio:+.1f} pp",
+                help="Diferencia entre el primer y el último año seleccionado; puntos porcentuales.")
 else:
-    col3.metric("Regiones seleccionadas", str(len(por_region)))
+    col2.metric("Cambio entre años", "—", help="Seleccioná al menos dos años para comparar.")
+col3.metric("Empresas distintas", f"{vista.company_id.nunique():,}", help=f"{len(vista):,} filas empresa-trimestre.")
 
 if len(por_region) >= 2:
     orden = por_region.sort_values()
-    st.subheader(f"En la selección actual, la adopción promedio va de {orden.iloc[0]:.1f}% en {orden.index[0]} a {orden.iloc[-1]:.1f}% en {orden.index[-1]}.")
+    st.subheader(f"En la selección actual, la adopción media va de {orden.iloc[0]:.1f}% en {orden.index[0]} a {orden.iloc[-1]:.1f}% en {orden.index[-1]}.")
 
-st.plotly_chart(crear_tablero(vista), width="stretch")
-st.caption("Cada panel muestra la tasa de adopción promedio dentro del grupo; n (al pasar el mouse) cuenta filas empresa-trimestre, no empresas distintas, y las filas de una misma empresa no son independientes. Fuente: Global AI Adoption & Workforce Impact Dataset, Kaggle. El dataset no trae pesos ni se conoce cómo se generaron los datos, así que los resultados no se pueden extrapolar a todas las empresas. Las barras no representan intervalos de confianza.")
+figura = crear_tablero(vista)
+if "width" in inspect.signature(st.plotly_chart).parameters:
+    st.plotly_chart(figura, width="stretch")
+else:  # Compatibilidad con Streamlit 1.30–1.48
+    st.plotly_chart(figura, use_container_width=True)
+st.caption("Las tres vistas usan los mismos filtros y el período completo seleccionado. Las barras empiezan en cero y comparten escala de 0 a 100 %. Al pasar el cursor se muestran empresas distintas y filas empresa-trimestre; las observaciones de una misma empresa se repiten en el tiempo, por lo que estos conteos no son independientes. La fuente no publica ponderaciones ni un diseño muestral verificable; no se muestran intervalos de confianza ni se extrapolan los resultados a todas las empresas. Fuente: Kaggle, Global AI Adoption & Workforce Impact Dataset; datos 2023–2026.")
