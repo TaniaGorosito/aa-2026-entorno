@@ -112,11 +112,28 @@ Huella de `diamantes` en cada modalidad (deben ser idénticas):
 
 
 
-## Cuadernos del TP
+## Cuadernos del proyecto
 
-1. `notebooks/01_diccionario_ai.ipynb`: diccionario y perfil del dataset.
-2. `notebooks/02_limpieza_ai.ipynb`: validación y generación del parquet limpio.
-3. `notebooks/03_descriptiva_ai.ipynb`: respuestas descriptivas a las diez preguntas, con gráficos dentro del cuaderno.
-4. `notebooks/04_flujos_modelado_fuga.ipynb`: regresión de adopción de IA, preparación en pipeline, selección dentro de validación cruzada y separación por empresa para evitar fuga.
+1. `notebooks/01_diccionario_ai.ipynb`: perfil y diccionario del dataset.
+2. `notebooks/02_limpieza_ai.ipynb`: validaciones y generación del Parquet limpio.
+3. `notebooks/03_descriptiva_ai.ipynb`: preguntas y análisis exploratorio.
+4. `notebooks/04_flujos_modelado_fuga.ipynb`: flujo de regresión y control de fuga por empresa.
+5. `notebooks/05_regresion.ipynb`: línea base, Ridge, árbol y Random Forest; compara MSE, RMSE, MAE y R², y guarda el mejor pipeline para la demo.
+6. `notebooks/06_tablero_interactivo.ipynb`: tablero descriptivo.
+7. `notebooks/07_clasificacion.ipynb`: cuatro clasificadores, métricas por clase, matrices de confusión y un análisis complementario de K-Means.
 
-Para rehacer el análisis, guardar `ai_company_adoption.csv` en `datos/crudos/` y ejecutar los cuadernos 02, 03 y 04 en ese orden. Abrir Jupyter desde la raíz del repositorio; los cuadernos buscan `proyecto_equipo/datos` aunque el repositorio también tenga una carpeta `datos/` propia.
+### Datos y ejecución
+
+El CSV original y el Parquet derivado no se versionan. Descargar `ai_company_adoption.csv` desde la fuente Kaggle indicada arriba y guardarlo en `proyecto_equipo/datos/crudos/`. Desde la raíz del repositorio, activar el entorno e instalar las dependencias con `pip install -r requirements.txt`. Abrir Jupyter con `python -m jupyter lab`, ejecutar primero `02_limpieza_ai.ipynb` y después los cuadernos del TP correspondiente (`05_regresion.ipynb` para TP2 y `07_clasificacion.ipynb` para TP3). Los modelos y ejemplos reservados para la presentación se generan en `proyecto_equipo/salidas/`, que permanece fuera de Git.
+
+### Demostración en Streamlit
+
+Después de ejecutar los cuadernos 05 y 07, iniciar desde la raíz:
+
+```bash
+python -m streamlit run proyecto_equipo/src/app_modelos.py
+```
+
+La aplicación permite editar los predictores de una observación reservada del test y ejecutar la predicción o clasificación. Muestra la etiqueta real y el error/acierto únicamente si los campos todavía coinciden con esa fila no vista durante el entrenamiento; para entradas modificadas muestra la salida del modelo sin atribuirles una etiqueta real.
+
+Las particiones separan empresas completas. En clasificación se usa `StratifiedGroupKFold` para aproximar las proporciones de clase sin mezclar filas de la misma empresa entre entrenamiento y prueba.
