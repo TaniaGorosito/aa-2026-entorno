@@ -4,14 +4,6 @@
 
 Repositorio: https://github.com/TaniaGorosito/aa-2026-entorno
 
-## Integrantes y rol
-
-| Integrante | Rol |
-|---|---|
-| Completar con los nombres del equipo | Completar |
-
-> No se completan nombres ni roles porque no figuran en los archivos del repositorio disponibles en esta copia.
-
 ## Conjunto de datos del equipo
 - Nombre y origen: Global AI Adoption & Workforce Impact Dataset, publicado en Kaggle por mohankrishnathalla. Se usa el archivo ai_company_adoption.csv. La fuente no documenta cómo se generaron ni se recolectaron los datos.
 - Enlace: https://www.kaggle.com/datasets/mohankrishnathalla/global-ai-adoption-and-workforce-impact-dataset?select=ai_company_adoption.csv (consultado en octubre de 2026). El archivo se usa tal cual, en CSV, y el diccionario de datos en Excel (diccionario_datos_ai_company_adoption.xlsx) se armó a partir de él.
@@ -23,12 +15,11 @@ Repositorio: https://github.com/TaniaGorosito/aa-2026-entorno
 - Datos personales: el archivo no tiene datos personales; los identificadores de empresa (COMP-00001, etc.) son códigos, sin nombres, domicilios ni contactos.
 - Estado de la validación (clase 9): Aprobado
 
-## Entorno de cada integrante
+## Entorno de ejecución verificado
 
-| Integrante | Modalidad (venv / conda / Docker / Colab) | Versión de Python | Sistema operativo |
-|---|---|---|---|
-| Entorno local de ejecución (esta copia) | venv | Python 3.12.14 | macOS 26.6.2 |
-| Otros integrantes | completar | completar | completar |
+| Modalidad | Versión de Python | Sistema operativo |
+|---|---|---|
+| venv local | Python 3.12.14 | macOS 26.6.2 |
 
 ## Cómo rehacer el entorno
 
