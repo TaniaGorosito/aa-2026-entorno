@@ -8,14 +8,14 @@ Repositorio: https://github.com/TaniaGorosito/aa-2026-entorno
 
 | Integrante | Rol |
 |---|---|
-| (nombre) | (rol) |
-| (nombre) | (rol) |
-| (nombre) | (rol) |
+| Completar con los nombres del equipo | Completar |
+
+> No se completan nombres ni roles porque no figuran en los archivos del repositorio disponibles en esta copia.
 
 ## Conjunto de datos del equipo
 - Nombre y origen: Global AI Adoption & Workforce Impact Dataset, publicado en Kaggle por mohankrishnathalla. Se usa el archivo ai_company_adoption.csv. La fuente no documenta cómo se generaron ni se recolectaron los datos.
 - Enlace: https://www.kaggle.com/datasets/mohankrishnathalla/global-ai-adoption-and-workforce-impact-dataset?select=ai_company_adoption.csv (consultado en octubre de 2026). El archivo se usa tal cual, en CSV, y el diccionario de datos en Excel (diccionario_datos_ai_company_adoption.xlsx) se armó a partir de él.
-- Licencia: A CONFIRMAR en la página de Kaggle antes de publicar el repositorio. Cita: mohankrishnathalla, Global AI Adoption & Workforce Impact Dataset, Kaggle.
+- Licencia del dataset: no se pudo confirmar en la ficha pública consultada. Verificarla en Kaggle antes de redistribuir el CSV. Cita: mohankrishnathalla, Global AI Adoption & Workforce Impact Dataset, Kaggle.
 - Última actualización en el portal: Hace 7 meses
 - Tamaño: 150.000 filas × 43 columnas (40,42 MB). Cada fila es una empresa en un trimestre (2023–2026): hay 10.000 empresas, con entre 10 y 16 filas cada una. Incluye variables de adopción de IA (tasa, etapa, herramienta, proyectos, presupuesto, capacitación), de impacto (productividad, automatización, ahorro de tiempo, empleos creados y desplazados, ingresos, costes) y de gobernanza (cumplimiento, gestión de riesgos, comité de ética, privacidad). No trae columna de ponderación.
 - Pregunta de análisis: ¿Cómo se asocia la adopción de IA en las empresas con sus resultados (productividad, empleo, costes e ingresos), y cómo varía según región, sector y tamaño de empresa? Se desglosa en 10 preguntas SMART (ver 01_diccionario_ai.ipynb y 03_descriptiva_ai.ipynb).
@@ -27,7 +27,8 @@ Repositorio: https://github.com/TaniaGorosito/aa-2026-entorno
 
 | Integrante | Modalidad (venv / conda / Docker / Colab) | Versión de Python | Sistema operativo |
 |---|---|---|---|
-| (nombre) | (completar) | (completar) | (completar) |
+| Entorno local de ejecución (esta copia) | venv | Python 3.12.14 | macOS 26.6.2 |
+| Otros integrantes | completar | completar | completar |
 
 ## Cómo rehacer el entorno
 
@@ -50,7 +51,7 @@ docker run --rm -p 8888:8888 -v "$PWD":/trabajo unraf-aa
 
 ## Verificación del entorno
 
-Salida de `python scripts/verificar_entorno.py` (pegar completa, una por modalidad):
+Salida registrada de `python scripts/verificar_entorno.py` en un entorno Windows del equipo (no corresponde al venv macOS usado para ejecutar los cuadernos en esta copia):
 
 
 VERIFICACIÓN DEL ENTORNO — Aprendizaje Automático y Grandes Datos — UNRaf
@@ -96,9 +97,8 @@ Huella de `diamantes` en cada modalidad (deben ser idénticas):
 
 ## Prueba del entorno limpio
 
-- Quién la hizo y cuándo: (completar)
-- Tiempo que tardó: (completar)
-- Qué falló y cómo se resolvió: (completar)
+- Quién la hizo y cuándo: completar con el integrante que probó el entorno limpio.
+- Tiempo que tardó y problemas: completar con la experiencia real de esa prueba.
 
 ## Desafíos
 
@@ -120,7 +120,7 @@ Huella de `diamantes` en cada modalidad (deben ser idénticas):
 4. `notebooks/04_flujos_modelado_fuga.ipynb`: flujo de regresión y control de fuga por empresa.
 5. `notebooks/05_regresion.ipynb`: línea base, Ridge, árbol y Random Forest; compara MSE, RMSE, MAE y R², y guarda el mejor pipeline para la demo.
 6. `notebooks/06_tablero_interactivo.ipynb`: tablero descriptivo.
-7. `notebooks/07_clasificacion.ipynb`: cuatro clasificadores, métricas por clase, matrices de confusión y un análisis complementario de K-Means.
+7. `notebooks/07_clasificacion.ipynb`: clasificadores (regresión logística, su versión ajustada, árbol, Naive Bayes, Random Forest y Dummy de referencia), validación cruzada agrupada, métricas por clase, matrices de confusión y análisis complementario de K-Means.
 
 ### Datos y ejecución
 
