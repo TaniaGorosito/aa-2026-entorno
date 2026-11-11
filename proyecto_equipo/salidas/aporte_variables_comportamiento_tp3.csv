@@ -1,0 +1,3 @@
+Modelo,Predictores,F1 macro (Test),Kappa (Test)
+Logística con contexto y comportamiento,8,0.49479406389970587,0.3981746869424767
+Logística solo con contexto,6,0.1846578915227901,0.028713807933664293

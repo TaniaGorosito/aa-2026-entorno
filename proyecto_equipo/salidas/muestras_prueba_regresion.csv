@@ -1,0 +1,9 @@
+demo_id,company_id,num_employees,annual_revenue_usd_millions,company_age,survey_year,country,industry,ai_adoption_rate
+REG-01,COMP-09720,17626,2262.06,24,2023,Singapore,Retail,58.76
+REG-02,COMP-07712,9982,2747.07,5,2023,South Africa,Healthcare,27.93
+REG-03,COMP-08515,105,362.82,29,2025,South Africa,Finance,50.62
+REG-04,COMP-03571,15468,5840.37,14,2024,Italy,Retail,27.75
+REG-05,COMP-01154,87,43.59,7,2026,Chile,Finance,24.78
+REG-06,COMP-04699,46,15.98,10,2023,South Korea,Consulting,43.55
+REG-07,COMP-00095,677,412.27,19,2026,Canada,Manufacturing,17.65
+REG-08,COMP-04866,15060,2715.95,6,2026,Egypt,Technology,39.18

@@ -1,0 +1,13 @@
+demo_id,company_id,country,industry,num_employees,annual_revenue_usd_millions,company_age,survey_year,num_ai_tools_used,ai_training_hours,ai_adoption_stage
+CLA-01,COMP-00003,Germany,Education,16151,8543.28,14,2023,1,19.79,pilot
+CLA-02,COMP-00003,Germany,Education,16151,8543.28,14,2023,2,23.97,pilot
+CLA-03,COMP-00003,Germany,Education,16151,8543.28,14,2023,2,33.88,partial
+CLA-04,COMP-00003,Germany,Education,16151,8543.28,14,2023,3,37.55,partial
+CLA-05,COMP-00003,Germany,Education,16151,8543.28,15,2024,2,17.33,pilot
+CLA-06,COMP-00003,Germany,Education,16151,8543.28,15,2024,3,28.97,partial
+CLA-07,COMP-00005,USA,Finance,519,454.35,14,2023,1,13.71,none
+CLA-08,COMP-00013,Thailand,Agriculture,382,245.48,13,2023,3,57.94,full
+CLA-09,COMP-00013,Thailand,Agriculture,382,245.48,15,2025,3,59.73,full
+CLA-10,COMP-00072,Canada,Retail,4709,1034.88,6,2023,1,21.18,none
+CLA-11,COMP-00072,Canada,Retail,4709,1034.88,7,2024,1,8.9,none
+CLA-12,COMP-00133,Canada,Education,271,140.78,32,2023,3,50.58,full

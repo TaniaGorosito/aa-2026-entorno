@@ -1,0 +1,7 @@
+Modelo,Accuracy (Train),Accuracy (Test),Precision macro (Train),Precision macro (Test),Recall macro (Train),Recall macro (Test),F1 macro (Train),F1 macro (Test),F1 ponderado (Train),F1 ponderado (Test),Kappa (Train),Kappa (Test),Brecha F1 macro
+Regresión logística (baseline),0.628,0.633,0.465,0.467,0.76,0.759,0.491,0.495,0.657,0.66,0.394,0.398,-0.004
+Dummy (prior),0.525,0.525,0.131,0.131,0.25,0.25,0.172,0.172,0.362,0.362,0.0,0.0,0.0
+Árbol de decisión,0.617,0.618,0.465,0.462,0.765,0.742,0.487,0.484,0.647,0.648,0.383,0.382,0.003
+Naive Bayes,0.541,0.533,0.394,0.382,0.63,0.584,0.408,0.394,0.566,0.557,0.259,0.241,0.015
+Random Forest (ensamble),0.613,0.611,0.456,0.452,0.771,0.743,0.476,0.47,0.645,0.643,0.378,0.373,0.006
+Regresión logística (GridSearchCV),0.628,0.632,0.465,0.467,0.76,0.759,0.491,0.495,0.657,0.659,0.394,0.398,-0.003

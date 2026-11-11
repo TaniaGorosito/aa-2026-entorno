@@ -1,0 +1,5 @@
+Criterio,Umbral,Precision (Test),Recall (Test),F1 (Test),FP (Test),FN (Test)
+Argmax multiclase (referencia),argmax,0.114,0.866,0.201,2273,45
+"Umbral binario 0,50",0.5,0.116,0.861,0.205,2202,47
+Máximo F1 (OOF train),0.916,0.252,0.359,0.296,359,216
+Máx. precisión con recall ≥ 0.70 (OOF train),0.754,0.176,0.641,0.277,1008,121
