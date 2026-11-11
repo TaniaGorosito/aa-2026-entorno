@@ -83,25 +83,6 @@ Huella de `diamantes` en cada modalidad (deben ser idénticas):
 | Modalidad | Huella | Filas × columnas |
 |---|---|---|
 | venv | 1b8812569e371bba|53940 × 10 |
-| conda | | |
-| Docker | | |
-
-## Prueba del entorno limpio
-
-- Quién la hizo y cuándo: completar con el integrante que probó el entorno limpio.
-- Tiempo que tardó y problemas: completar con la experiencia real de esa prueba.
-
-## Desafíos
-
-### Romper la reproducibilidad a propósito
-(describir la celda, por qué cambia entre ejecuciones y por qué la semilla no alcanza)
-
-### Qué pudo fallar con una hoja de cálculo publicada por una cuenta personal
-1. (falla 1 y qué habría que hacer en su lugar)
-2. (falla 2 y qué habría que hacer en su lugar)
-3. (falla 3 y qué habría que hacer en su lugar)
-
-
 
 ## Cuadernos del proyecto
 
@@ -115,9 +96,11 @@ Huella de `diamantes` en cada modalidad (deben ser idénticas):
 
 ### Datos y ejecución
 
-El CSV original y el Parquet derivado no se versionan. Descargar `ai_company_adoption.csv` desde la fuente Kaggle indicada arriba y guardarlo en `proyecto_equipo/datos/crudos/`. Desde la raíz del repositorio, activar el entorno e instalar las dependencias con `pip install -r requirements.txt`. Abrir Jupyter con `python -m jupyter lab`, ejecutar primero `02_limpieza_ai.ipynb` y después los cuadernos del TP correspondiente (`05_regresion.ipynb` para TP2 y `07_clasificacion.ipynb` para TP3). Los modelos y ejemplos reservados para la presentación se generan en `proyecto_equipo/salidas/`, que permanece fuera de Git.
+El CSV original y el Parquet limpio están versionados en `proyecto_equipo/datos/crudos/` y `proyecto_equipo/datos/derivados/`. Desde la raíz del repositorio, activar el entorno e instalar las dependencias con `pip install -r requirements.txt`. Abrir Jupyter con `python -m jupyter lab` y ejecutar primero `02_limpieza_ai.ipynb`, seguido de `05_regresion.ipynb` y `07_clasificacion.ipynb`. Los gráficos y tablas de `proyecto_equipo/salidas/` se versionan junto con `modelo_regresion_tp2.joblib` y `modelo_clasificacion_tp3.joblib` para la demo.
 
 ### Demostración en Streamlit
+
+Los modelos exportados se generaron con scikit-learn 1.8.0. Para reutilizar los archivos joblib versionados, usá esa misma versión; si cambia la versión, regenerá los modelos ejecutando los cuadernos 02, 05 y 07 en la máquina de la demo.
 
 Después de ejecutar los cuadernos 05 y 07, iniciar desde la raíz:
 

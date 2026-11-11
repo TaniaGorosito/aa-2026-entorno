@@ -93,7 +93,7 @@ def campos_entrada(bundle: dict, muestra: pd.Series, modo: str) -> pd.DataFrame:
 def mostrar_regresion():
     bundle, muestras = cargar("modelo_regresion_tp2.joblib", "muestras_prueba_regresion.csv")
     st.subheader("TP2 · Regresión")
-    st.write(f"Modelo elegido por RMSE de prueba: **{bundle['model_name']}**")
+    st.write(f"Modelo elegido por RMSE de validación cruzada agrupada: **{bundle['model_name']}**")
     muestra = selector_muestra(muestras, "reg")
     entrada, enviar = campos_entrada(bundle, muestra, "reg")
     if enviar:
@@ -113,7 +113,7 @@ def mostrar_regresion():
 def mostrar_clasificacion():
     bundle, muestras = cargar("modelo_clasificacion_tp3.joblib", "muestras_prueba_clasificacion.csv")
     st.subheader("TP3 · Clasificación")
-    st.write(f"Modelo elegido por F1 macro de prueba: **{bundle['model_name']}**")
+    st.write(f"Modelo elegido por F1 macro de validación cruzada agrupada: **{bundle['model_name']}**")
     muestra = selector_muestra(muestras, "clas")
     entrada, enviar = campos_entrada(bundle, muestra, "clas")
     if enviar:
