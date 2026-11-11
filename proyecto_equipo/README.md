@@ -6,8 +6,8 @@ Repositorio: https://github.com/TaniaGorosito/aa-2026-entorno
 
 ## Conjunto de datos del equipo
 - Nombre y origen: Global AI Adoption & Workforce Impact Dataset, publicado en Kaggle por mohankrishnathalla. Se usa el archivo ai_company_adoption.csv. La fuente no documenta cómo se generaron ni se recolectaron los datos.
-- Enlace: https://www.kaggle.com/datasets/mohankrishnathalla/global-ai-adoption-and-workforce-impact-dataset?select=ai_company_adoption.csv (consultado en octubre de 2026). El archivo se usa tal cual, en CSV, y el diccionario de datos en Excel (diccionario_datos_ai_company_adoption.xlsx) se armó a partir de él.
-- Licencia del dataset: no se pudo confirmar en la ficha pública consultada. Verificarla en Kaggle antes de redistribuir el CSV. Cita: mohankrishnathalla, Global AI Adoption & Workforce Impact Dataset, Kaggle.
+- Enlace: https://www.kaggle.com/datasets/mohankrishnathalla/global-ai-adoption-and-workforce-impact-dataset?select=ai_company_adoption.csv (consultado el 10 de noviembre de 2026). El archivo se usa tal cual, en CSV, y el diccionario de datos en Excel (diccionario_datos_ai_company_adoption.xlsx) se armó a partir de él.
+- Licencia del dataset: CC0: Public Domain, confirmada en los metadatos de Kaggle el 10 de noviembre de 2026. Cita: mohankrishnathalla, Global AI Adoption & Workforce Impact Dataset, Kaggle.
 - Última actualización en el portal: Hace 7 meses
 - Tamaño: 150.000 filas × 43 columnas (40,42 MB). Cada fila es una empresa en un trimestre (2023–2026): hay 10.000 empresas, con entre 10 y 16 filas cada una. Incluye variables de adopción de IA (tasa, etapa, herramienta, proyectos, presupuesto, capacitación), de impacto (productividad, automatización, ahorro de tiempo, empleos creados y desplazados, ingresos, costes) y de gobernanza (cumplimiento, gestión de riesgos, comité de ética, privacidad). No trae columna de ponderación.
 - Pregunta de análisis: ¿Cómo se asocia la adopción de IA en las empresas con sus resultados (productividad, empleo, costes e ingresos), y cómo varía según región, sector y tamaño de empresa? Se desglosa en 10 preguntas SMART (ver 01_diccionario_ai.ipynb y 03_descriptiva_ai.ipynb).
